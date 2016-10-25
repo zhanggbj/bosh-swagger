@@ -8,14 +8,16 @@ go version
 export GOPATH=$base_gopath:$GOPATH
 echo "GOPATH=" $GOPATH
 echo "PWD is "$PWD
+version=`cat version-semver/number`
+server_name="baremetal-provision-server-"${version}
 pushd gopath/src/github.com/zhanggbj/bosh-swagger/
   export GOPATH=$PWD
   go get -u github.com/go-swagger/go-swagger/cmd/swagger
   echo "ls"
   ls
   ./bin/swagger validate docs/swagger/swagger.json
-  mkdir -p src/baremetal-provision-server
-  pushd src/baremetal-provision-server
+  mkdir -p src/${server_name}
+  pushd src/${server_name}
     go get github.com/go-openapi/errors
     go get github.com/go-openapi/loads
     go get github.com/go-openapi/runtime
@@ -29,5 +31,11 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     ./../../bin/swagger generate server -f ./../../docs/swagger/swagger.json
     go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
     ls bin/
+
+    git add models restapi cmds
+    git config --global user.email zhanggbj@cn.ibm.com
+    git config --global user.name zhanggbj
+    git ci -m "generated $server_name"
+    git push origin master
   popd
 popd

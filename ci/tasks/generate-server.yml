@@ -5,6 +5,7 @@ image: docker:///zhanggongsw/bosh
 inputs:
   - name: bosh-swagger
     path: gopath/src/github.com/zhanggbj/bosh-swagger
+  - name: version-semver
 
 run:
   path: gopath/src/github.com/zhanggbj/bosh-swagger/ci/tasks/generate-server.sh
