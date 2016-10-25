@@ -21,7 +21,10 @@ go get github.com/go-openapi/validate
 go get github.com/jessevdk/go-flags
 go get github.com/tylerb/graceful
 
-cd src/github.com/cloudfoundry-community/bosh-softlayer-baremetal-server
+cd gopath/src/github.com/cloudfoundry-community/bosh-softlayer-baremetal-server
+
+echo "run ls"
+ls
 ../../../../bin/swagger validate swagger.json
 
 ../../../../bin/swagger generate server swagger.json
