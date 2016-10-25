@@ -9,10 +9,11 @@ export GOPATH=$base_gopath:$GOPATH
 echo "GOPATH=" $GOPATH
 echo "PWD is "$PWD
 pushd gopath/src/github.com/zhanggbj/bosh-swagger/
+  export GOPATH=$PWD
   go get -u github.com/go-swagger/go-swagger/cmd/swagger
   echo "ls"
   ls
-  ./$GOPATH/bin/swagger validate docs/swagger/swagger.json
+  ./bin/swagger validate docs/swagger/swagger.json
   mkdir -p src/baremetal-provision-server
   mv
   pushd src/baremetal-provision-server
@@ -26,7 +27,7 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     go get github.com/tylerb/graceful
     go get github.com/gorilla/context
     go get github.com/go-openapi/swag
-    ./$GOPATH/bin/swagger generate server -f ./../../docs/swagger/swagger.json
+    ./../../bin/swagger generate server -f ./../../docs/swagger/swagger.json
     go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
     ls bin/
   popd
