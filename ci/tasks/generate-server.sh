@@ -32,7 +32,7 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
     ls bin/
 
-    git add models restapi cmds
+    git add models restapi cmd
     git config --global user.email zhanggbj@cn.ibm.com
     git config --global user.name zhanggbj
     git ci -m "generated $server_name"
