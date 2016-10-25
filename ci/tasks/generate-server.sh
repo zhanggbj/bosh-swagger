@@ -25,9 +25,9 @@ pushd $base_gopath/src/github.com/zhanggbj/bosh-swagger/src/github.com/cloudfoun
 
 echo "run ls"
 ls
-../../../../bin/swagger validate swagger.json
+/../../../../../../../../bin/swagger validate swagger.json
 
-../../../../bin/swagger generate server swagger.json
+/../../../../../../../../bin/swagger generate server swagger.json
 
 go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
 ./bin/bms --port 8080
