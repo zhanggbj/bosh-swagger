@@ -1,0 +1,16 @@
+resources:
+- name: bosh-swagger
+  type: git
+  source:
+    uri: https://github.com/zhanggbj/bosh-swagger.git
+    branch: master
+
+jobs:
+- name: generate-server
+  public: true
+  plan:
+  - get: bosh-softlayer-baremetal-server
+    trigger: true
+
+  - task: generate-server
+    file: bosh-softlayer-baremetal-server/ci/tasks/generate-server.yml

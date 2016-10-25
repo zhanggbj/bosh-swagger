@@ -1,0 +1,528 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.2.0",
+        "title": "SoftLayer Baremetal Provisioning",
+        "description": "BOSH SoftLayer baremetal provisioning (BMP) server APIs"
+    },
+    "host": "api.baremetal.softlayer.com",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/login/{username}/{password}": {
+            "get": {
+                "description": "Login user with username and password.\n",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "the username"
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "the password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/info": {
+            "get": {
+                "description": "Checks the status of the BMP server.\n",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/Info"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/stemcells": {
+            "get": {
+                "description": "List Baremetal server stemcells\n",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/Stemcells"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/bms/{deploymentName}": {
+            "get": {
+                "description": "List baremetal servers\n",
+                "parameters": [
+                    {
+                        "name": "deploymentName",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "the name of the deployment"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/BaremetalServers"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "get": {
+                "description": "List baremetal server tasks, e.g, GET /tasks?latest={number}\n",
+                "parameters": [
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true,
+                        "description": "the task number to use as latest"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/Tasks"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/{taskId}/txt/{level}": {
+            "get": {
+                "description": "List baremetal server task output\n",
+                "parameters": [
+                    {
+                        "name": "taskId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "the ID for the task"
+                    },
+                    {
+                        "name": "level",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "the log level to retrieve"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/TaskOutput"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/baremetal/{serverId}/{state}": {
+            "put": {
+                "description": "Update baremetal server state, e.g., curl -X PUT \"http://10.12.20.17:8080/baremetal/981961/bm.state.new\n",
+                "parameters": [
+                    {
+                        "name": "serverId",
+                        "in": "path",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true,
+                        "description": "the ID for the server"
+                    },
+                    {
+                        "name": "state",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "the new state for the server"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/baremetals": {
+            "put": {
+                "description": "Create baremetal servers",
+                "parameters": [
+                    {
+                        "name": "baremetal_specs",
+                        "in": "body",
+                        "description": "the spec and deployment for creating the baremetal server",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BaremetalsParameters"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/BaremetalsResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Login": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "string",
+                    "format": "OK"
+                }
+            }
+        },
+        "Info": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "$ref": "#/definitions/InfoData"
+                }
+            }
+        },
+        "InfoData": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "the name of the BMP server"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "the version string of the BMP server"
+                }
+            }
+        },
+        "Stemcells": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "BaremetalServers": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "$ref": "#/definitions/BaremetalServer"
+                }
+            }
+        },
+        "BaremetalServer": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "the hostname for the baremetal server"
+                },
+                "private_ip_address": {
+                    "type": "string",
+                    "description": "the private IP address for the baremetal server"
+                },
+                "public_ip_address": {
+                    "type": "string",
+                    "description": "the public IP address for the baremetal server"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "a string tag value"
+                    }
+                },
+                "hardware_status": {
+                    "type": "string",
+                    "description": "a string status of the hardware"
+                },
+                "memory": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "cpu": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "provision_date": {
+                    "type": "string",
+                    "description": "the date for the provisioning, e.g., 2016-07-05T19:38:08+08:00"
+                }
+            }
+        },
+        "Tasks": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Task"
+                    }
+                }
+            }
+        },
+        "Task": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "the description string for this task"
+                },
+                "start_time": {
+                    "type": "string",
+                    "description": "the start time for task, e.g., 2016-07-05T19:38:08+08:00"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "the status string for this task"
+                }
+            }
+        },
+        "TaskOutput": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "one line of task output"
+                    }
+                }
+            }
+        },
+        "BaremetalsParameters": {
+            "type": "object",
+            "properties": {
+                "baremetal_specs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BaremetalSpecs"
+                    }
+                },
+                "deployment": {
+                    "type": "string",
+                    "description": "the deployment name"
+                }
+            }
+        },
+        "BaremetalSpecs": {
+            "type": "object",
+            "properties": {
+                "bosh_ip": {
+                    "type": "string",
+                    "description": "the IP address for the BOSH director"
+                },
+                "datacenter": {
+                    "type": "string",
+                    "description": "the SoftLayer datacenter name"
+                },
+                "domain": {
+                    "type": "string",
+                    "description": "the domain address for the baremetal server"
+                },
+                "name_prefix": {
+                    "type": "string",
+                    "description": "a prefix string for the name of this baremetal server"
+                },
+                "server_spec": {
+                    "$ref": "#/definitions/ServerSpec"
+                },
+                "baremetal": {
+                    "type": "boolean",
+                    "description": "whether or not this is baremetal server"
+                },
+                "bm_stemcell": {
+                    "type": "string",
+                    "description": "the name of the baremetal server stemcell"
+                },
+                "bm_netboot_image": {
+                    "type": "string",
+                    "description": "the name of the netboot image"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "ServerSpec": {
+            "type": "object",
+            "properties": {
+                "cores": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "memory": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "max_port_speed": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "public_vlan_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "private_vlan_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "hourly": {
+                    "type": "boolean",
+                    "description": "whether this baremetal will be charged for by the hour or not"
+                }
+            }
+        },
+        "BaremetalsResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "task_id": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
