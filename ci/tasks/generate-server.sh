@@ -7,10 +7,11 @@ base_gopath=$( cd $base/../../../.. && pwd )
 go version
 export GOPATH=$base_gopath:$GOPATH
 echo "GOPATH=" $GOPATH
-pwd
+echo "PWD is "$PWD
 pushd gopath/src/github.com/zhanggbj/bosh-swagger/
-
   go get -u github.com/go-swagger/go-swagger/cmd/swagger
+  echo "ls"
+  ls
   ./bin/swagger validate docs/swagger/swagger.json
   mkdir -p src/baremetal-provision-server
   mv
