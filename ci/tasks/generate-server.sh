@@ -15,7 +15,6 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
   ls
   ./bin/swagger validate docs/swagger/swagger.json
   mkdir -p src/baremetal-provision-server
-  mv
   pushd src/baremetal-provision-server
     go get github.com/go-openapi/errors
     go get github.com/go-openapi/loads
