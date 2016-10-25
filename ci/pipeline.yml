@@ -9,8 +9,8 @@ jobs:
 - name: generate-server
   public: true
   plan:
-  - get: bosh-softlayer-baremetal-server
+  - get: bosh-swagger
     trigger: true
 
   - task: generate-server
-    file: bosh-softlayer-baremetal-server/ci/tasks/generate-server.yml
+    file: bosh-swagger/ci/tasks/generate-server.yml
