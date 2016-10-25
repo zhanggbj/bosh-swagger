@@ -35,7 +35,7 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     git add models restapi cmd
     git config --global user.email zhanggbj@cn.ibm.com
     git config --global user.name zhanggbj
-    git ci -m "generated $server_name"
+    git commit -m "generated $server_name"
     git push origin master
   popd
 popd
