@@ -21,7 +21,7 @@ go get github.com/go-openapi/validate
 go get github.com/jessevdk/go-flags
 go get github.com/tylerb/graceful
 
-cd gopath/src/github.com/cloudfoundry-community/bosh-softlayer-baremetal-server
+pushd $base_gopath/src/github.com/zhanggbj/bosh-swagger/src/github.com/cloudfoundry-community/bosh-softlayer-baremetal-server
 
 echo "run ls"
 ls
