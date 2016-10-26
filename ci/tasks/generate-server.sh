@@ -73,7 +73,7 @@ popd
 
 
 echo $version > promoted/version
-cp -r bosh-swagger promoted/repo
+cp -r gopath/src/github.com/zhanggbj/bosh-swagger promoted/repo
 
 pushd promoted/repo
     echo ${divider}
