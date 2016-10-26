@@ -50,7 +50,6 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     git config --global user.email zhanggbj@cn.ibm.com
     git config --global user.name "Gong Zhang"
     git commit -m "generated $server_name"
-#    git push origin master
 
   popd
 popd
