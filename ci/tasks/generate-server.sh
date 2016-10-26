@@ -48,7 +48,6 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
 
     echo "verify bms..."
     nohup ./bin/bms --port 8080 &
-    cat nohup.out
     ps -ef|grep bms
     curl http://127.0.0.1:8080/v1/info
 
