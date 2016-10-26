@@ -34,7 +34,7 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     echo "PWD is" $PWD
     ls ./../../
     cp ./../../handlers/configure_soft_layer_baremetal_provisioning.go restapi/configure_soft_layer_baremetal_provisioning.go
-    sed -i '/bosh-softlayer-baremetal-server/a ${server_name}' restapi/configure_soft_layer_baremetal_provisioning.go
+    sed -i '/bosh-softlayer-baremetal-server/n;s/bosh-softlayer-baremetal-server/${server_name}/' restapi/configure_soft_layer_baremetal_provisioning.go
     cat restapi/configure_soft_layer_baremetal_provisioning.go
 
     go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
