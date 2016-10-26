@@ -17,7 +17,7 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
   ls
   ./bin/swagger validate docs/swagger/swagger.json
   mkdir -p src/${server_name}
-  mv handlers src/${server_name}/
+  cp -r handlers src/${server_name}/
   pushd src/${server_name}
     go get github.com/go-openapi/errors
     go get github.com/go-openapi/loads
