@@ -55,24 +55,33 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     echo "build baremetal provision server..."
     echo ${divider}
 #    cat cmd/soft-layer-baremetal-provisioning-server/main.go
-    go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
+    go build -o bin/bmp cmd/soft-layer-baremetal-provisioning-server/main.go
     ls bin/
 
     echo ${divider}
     echo "verify bms..."
     echo ${divider}
     ipaddr=`ifconfig | awk '/inet addr/{print substr($2,6)}' | sed -n 2p`
-    nohup ./bin/bms --port 80 --host ${ipaddr} &
-    ps -ef|grep bms
-    sleep 5
-    curl http://${ipaddr}:80/v1/info
-
-#    echo "commit server..."
-
-#    git add models restapi cmd
-#    git config --global user.email zhanggbj@cn.ibm.com
-#    git config --global user.name "Gong Zhang"
-#    git commit -m "generated $server_name"
-
+    nohup ./bin/bmp --port 8080 --host ${ipaddr} &
+    ps -ef|grep bmp
+    sleep 3
+    curl http://${ipaddr}:8080/v1/info
+    sleep 3
+    curl http://${ipaddr}:8080/v1/stemcells
   popd
+popd
+
+
+echo $version > promoted/version
+cp -r bosh-cpi-release promoted/repo
+
+pushd promoted/repo
+    echo ${divider}
+    echo "commit server..."
+    echo ${divider}
+
+    git add src/${server_name}/models src/${server_name}/restapi src/${server_name}/cmd
+    git config --global user.email "zhanggbj@cn.ibm.com"
+    git config --global user.name "zhanggbj"
+    git commit -m "generated ${server_name}"
 popd
