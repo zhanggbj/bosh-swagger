@@ -5,8 +5,8 @@ import (
 
 	middleware "github.com/go-openapi/runtime/middleware"
 
-	"github.com/cloudfoundry-community/bosh-softlayer-baremetal-server/restapi/operations"
-	"github.com/cloudfoundry-community/bosh-softlayer-baremetal-server/models"
+	"baremetal-provision-server/restapi/operations"
+	"baremetal-provision-server/models"
 )
 
 func GetInfoHandlerFunc(params operations.GetInfoParams) middleware.Responder {
