@@ -35,6 +35,8 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
 
     sed -i '/import/a "baremetal-provision-server\/handlers"' restapi/configure_soft_layer_baremetal_provisioning.go
 
+    cat restapi/configure_soft_layer_baremetal_provisioning.go
+
     git add models restapi cmd
     git config --global user.email zhanggbj@cn.ibm.com
     git config --global user.name "Gong Zhang"
