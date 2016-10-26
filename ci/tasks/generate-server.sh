@@ -31,6 +31,8 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     go get github.com/go-openapi/swag
     ./../../bin/swagger generate server -f ./../../docs/swagger/swagger.json
     #sed -i '/import/a "baremetal-provision-server\/handlers"' restapi/configure_soft_layer_baremetal_provisioning.go
+    echo "PWD is" $PWD
+    ls ./../../
     cp ./../../handlers/configure_soft_layer_baremetal_provisioning.go restapi/configure_soft_layer_baremetal_provisioning.go
     sed -i '/baremetal-provision-server/a ${server_name}' restapi/configure_soft_layer_baremetal_provisioning.go
     cat restapi/configure_soft_layer_baremetal_provisioning.go
