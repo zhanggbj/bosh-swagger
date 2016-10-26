@@ -70,18 +70,18 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     curl http://${ipaddr}:8080/v1/stemcells
   popd
 popd
-
-
-echo $version > promoted/version
-cp -r bosh-cpi-release promoted/repo
-
-pushd promoted/repo
-    echo ${divider}
-    echo "commit server..."
-    echo ${divider}
-
-    git add src/${server_name}/models src/${server_name}/restapi src/${server_name}/cmd
-    git config --global user.email "zhanggbj@cn.ibm.com"
-    git config --global user.name "zhanggbj"
-    git commit -m "generated ${server_name}"
-popd
+#
+#
+#echo $version > promoted/version
+#cp -r bosh-cpi-release promoted/repo
+#
+#pushd promoted/repo
+#    echo ${divider}
+#    echo "commit server..."
+#    echo ${divider}
+#
+#    git add src/${server_name}/models src/${server_name}/restapi src/${server_name}/cmd
+#    git config --global user.email "zhanggbj@cn.ibm.com"
+#    git config --global user.name "zhanggbj"
+#    git commit -m "generated ${server_name}"
+#popd
