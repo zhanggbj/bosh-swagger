@@ -38,13 +38,19 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     mv handlers/configure_soft_layer_baremetal_provisioning.go restapi/configure_soft_layer_baremetal_provisioning.go
     sed -i s/bosh-softlayer-baremetal-server/${server_name}/g restapi/configure_soft_layer_baremetal_provisioning.go
     sed -i s/bosh-softlayer-baremetal-server/${server_name}/g handlers/handlers.go
-    cat restapi/configure_soft_layer_baremetal_provisioning.go
-    cat handlers/handlers.go
+#    cat restapi/configure_soft_layer_baremetal_provisioning.go
+#    cat handlers/handlers.go
 
     echo "build baremetal provision server..."
-    cat cmd/soft-layer-baremetal-provisioning-server/main.go
+#    cat cmd/soft-layer-baremetal-provisioning-server/main.go
     go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
     ls bin/
+
+    echo "verify bms..."
+    nohup ./bin/bms --port 8080 &
+    curl http://127.0.0.1:8080/v1/info
+
+    echo "commit server..."
 
     git add models restapi cmd
     git config --global user.email zhanggbj@cn.ibm.com
