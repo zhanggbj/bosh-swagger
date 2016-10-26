@@ -34,8 +34,8 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     echo "PWD is" $PWD
 
     echo "update handlers..."
-    ls ./../../
-    mv ./../../handlers/configure_soft_layer_baremetal_provisioning.go restapi/configure_soft_layer_baremetal_provisioning.go
+    ls
+    mv handlers/configure_soft_layer_baremetal_provisioning.go restapi/configure_soft_layer_baremetal_provisioning.go
     sed -i s/bosh-softlayer-baremetal-server/${server_name}/g restapi/configure_soft_layer_baremetal_provisioning.go
     sed -i s/bosh-softlayer-baremetal-server/${server_name}/g handlers/handlers.go
     cat restapi/configure_soft_layer_baremetal_provisioning.go
