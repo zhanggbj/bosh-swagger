@@ -47,9 +47,9 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     ls bin/
 
     echo "verify bms..."
-    nohup ./bin/bms --port 8080 &
-    ps -ef|grep bms
     ipaddr=`ifconfig | awk '/inet addr/{print substr($2,6)}' | sed -n 2p`
+    nohup ./bin/bms --port 8080 --host ${ipaddr} &
+    ps -ef|grep bms
     curl http://${ipaddr}:8080/v1/info
 
 #    echo "commit server..."
