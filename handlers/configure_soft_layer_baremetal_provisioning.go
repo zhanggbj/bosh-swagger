@@ -10,6 +10,9 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
 
+	"bosh-softlayer-baremetal-server/restapi/operations"
+	"bosh-softlayer-baremetal-server/handlers"
+
 	"log"
 )
 
