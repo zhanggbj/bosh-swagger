@@ -49,15 +49,15 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     echo "verify bms..."
     nohup ./bin/bms --port 8080 &
     ps -ef|grep bms
-    ifconfig
-#    curl http://127.0.0.1:8080/v1/info
+    ipaddr=`ifconfig | awk '/inet addr/{print substr($2,6)}' | sed -n 2p`
+    curl http://${ipaddr}:8080/v1/info
 
-    echo "commit server..."
+#    echo "commit server..."
 
-    git add models restapi cmd
-    git config --global user.email zhanggbj@cn.ibm.com
-    git config --global user.name "Gong Zhang"
-    git commit -m "generated $server_name"
+#    git add models restapi cmd
+#    git config --global user.email zhanggbj@cn.ibm.com
+#    git config --global user.name "Gong Zhang"
+#    git commit -m "generated $server_name"
 
   popd
 popd
