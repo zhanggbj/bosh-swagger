@@ -17,6 +17,7 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
   ls
   ./bin/swagger validate docs/swagger/swagger.json
   mkdir -p src/${server_name}
+  mv handlers src/${server_name}/
   pushd src/${server_name}
     go get github.com/go-openapi/errors
     go get github.com/go-openapi/loads
@@ -32,10 +33,14 @@ pushd gopath/src/github.com/zhanggbj/bosh-swagger/
     go build -o bin/bms cmd/soft-layer-baremetal-provisioning-server/main.go
     ls bin/
 
+    sed -i '/import/a "baremetal-provision-server\/handlers"' restapi/config_soft_layer_baremetal_provisoing.go
+
+
     git add models restapi cmd
     git config --global user.email zhanggbj@cn.ibm.com
-    git config --global user.name zhanggbj
+    git config --global user.name "Gong Zhang"
     git commit -m "generated $server_name"
-    git push origin master
+#    git push origin master
+
   popd
 popd
